@@ -2,6 +2,10 @@
 
 A modern web application built with Next.js, React, and TypeScript, featuring a clean and responsive user interface powered by Tailwind CSS.
 
+## 🌐 Live Demo
+
+The application is deployed and available at: [https://insta-stories-xv5n.vercel.app/](https://insta-stories-xv5n.vercel.app/)
+
 ## 🚀 Technologies
 
 - [Next.js 15.3.3](https://nextjs.org/) - React framework for production
@@ -104,6 +108,18 @@ The project uses Playwright for end-to-end testing. The tests cover the followin
    ```
 
 The tests run in three browsers (Chrome, Firefox, and Safari) to ensure cross-browser compatibility.
+
+## 🚀 Deployment
+
+The application is deployed on Vercel. The deployment process is automated through GitHub integration:
+
+1. Push changes to the main branch
+2. Vercel automatically builds and deploys the application
+3. Preview deployments are created for pull requests
+
+### Deployment URL
+
+- Production: [https://insta-stories-xv5n.vercel.app/](https://insta-stories-xv5n.vercel.app/)
 
 ## 🔧 Configuration Files
 
