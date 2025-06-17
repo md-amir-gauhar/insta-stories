@@ -9,6 +9,7 @@ A modern web application built with Next.js, React, and TypeScript, featuring a 
 - [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
 - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
 - [ESLint](https://eslint.org/) - Code linting
+- [Playwright](https://playwright.dev/) - End-to-end testing framework
 
 ## 📦 Project Structure
 
@@ -22,6 +23,8 @@ A modern web application built with Next.js, React, and TypeScript, featuring a 
 │   │   ├── Stories.tsx     # Stories component
 │   │   └── Loader.tsx      # Loading component
 │   └── constants/          # Constant values
+├── e2e/                    # End-to-end tests
+│   └── stories.spec.ts     # Stories component tests
 ├── public/                 # Static assets
 ├── .next/                  # Next.js build output
 └── node_modules/          # Project dependencies
@@ -67,6 +70,40 @@ A modern web application built with Next.js, React, and TypeScript, featuring a 
 - `npm run build` - Builds the application for production
 - `npm run start` - Runs the built application
 - `npm run lint` - Runs ESLint to check code quality
+- `npm test` - Runs end-to-end tests in headless mode
+- `npm run test:ui` - Runs end-to-end tests with UI mode
+
+## 🧪 Testing
+
+The project uses Playwright for end-to-end testing. The tests cover the following functionality:
+
+- Story avatar display and navigation
+- Story viewer opening and closing
+- Navigation between stories
+- Video story playback and controls
+- Loading states and transitions
+
+### Running Tests
+
+1. Install Playwright browsers (first time only):
+
+   ```bash
+   npx playwright install
+   ```
+
+2. Run tests in headless mode:
+
+   ```bash
+   npm test
+   ```
+
+3. Run tests with UI mode (recommended for development):
+
+   ```bash
+   npm run test:ui
+   ```
+
+The tests run in three browsers (Chrome, Firefox, and Safari) to ensure cross-browser compatibility.
 
 ## 🔧 Configuration Files
 
@@ -75,6 +112,7 @@ A modern web application built with Next.js, React, and TypeScript, featuring a 
 - `next.config.ts` - Next.js configuration
 - `postcss.config.mjs` - PostCSS configuration for Tailwind
 - `eslint.config.mjs` - ESLint configuration
+- `playwright.config.ts` - Playwright test configuration
 
 ## 🏗️ Development
 
@@ -84,6 +122,7 @@ The project uses a modern development stack with:
 - **Tailwind CSS** for styling
 - **ESLint** for code quality
 - **Next.js** for server-side rendering and routing
+- **Playwright** for end-to-end testing
 
 ## 📄 License
 
