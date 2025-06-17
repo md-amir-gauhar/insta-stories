@@ -1,11 +1,12 @@
 "use client";
 
 import React, { useState, useEffect, useCallback, useRef } from "react";
+import Image from "next/image";
 import Loader from "./Loader";
 import { stories, Story } from "@/constants/stories";
 
-const IMAGE_DURATION = 5000; // 10 seconds
-const MAX_VIDEO_DURATION = 30000; // 30 seconds
+const IMAGE_DURATION = 5000;
+const MAX_VIDEO_DURATION = 30000;
 
 const Stories: React.FC = () => {
   const [selectedStory, setSelectedStory] = useState<Story | null>(null);
@@ -13,7 +14,6 @@ const Stories: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isMuted, setIsMuted] = useState<boolean>(true);
   const [progress, setProgress] = useState<number>(0);
-  const [videoDuration, setVideoDuration] = useState<number>(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressInterval = useRef<NodeJS.Timeout | null>(null);
 
@@ -21,7 +21,6 @@ const Stories: React.FC = () => {
     setSelectedStory(story);
     setCurrentIndex(stories.findIndex((s) => s.id === story.id));
     setProgress(0);
-    setVideoDuration(0);
   };
 
   const handleClose = () => {
@@ -30,7 +29,6 @@ const Stories: React.FC = () => {
     }
     setSelectedStory(null);
     setProgress(0);
-    setVideoDuration(0);
   };
 
   const handlePrevious = useCallback(() => {
@@ -42,7 +40,6 @@ const Stories: React.FC = () => {
       setCurrentIndex((prev) => prev - 1);
       setSelectedStory(stories[currentIndex - 1]);
       setProgress(0);
-      setVideoDuration(0);
     }
   }, [currentIndex]);
 
@@ -55,7 +52,6 @@ const Stories: React.FC = () => {
       setCurrentIndex((prev) => prev + 1);
       setSelectedStory(stories[currentIndex + 1]);
       setProgress(0);
-      setVideoDuration(0);
     }
   }, [currentIndex]);
 
@@ -78,53 +74,49 @@ const Stories: React.FC = () => {
       return () => clearInterval(progressInterval.current!);
     }
     if (selectedStory.type === "video" && videoRef.current) {
+      const video = videoRef.current;
       const updateProgress = () => {
-        if (videoRef.current) {
-          const duration = Math.min(videoRef.current.duration * 1000, MAX_VIDEO_DURATION);
-          setVideoDuration(duration);
-          setProgress(Math.min(videoRef.current.currentTime * 1000 / duration, 1));
+        if (video) {
+          const duration = Math.min(video.duration * 1000, MAX_VIDEO_DURATION);
+          setProgress(Math.min(video.currentTime * 1000 / duration, 1));
         }
       };
-      videoRef.current.addEventListener("timeupdate", updateProgress);
-      videoRef.current.addEventListener("loadedmetadata", updateProgress);
+      video.addEventListener("timeupdate", updateProgress);
+      video.addEventListener("loadedmetadata", updateProgress);
       return () => {
-        if (videoRef.current) {
-          videoRef.current.removeEventListener("timeupdate", updateProgress);
-          videoRef.current.removeEventListener("loadedmetadata", updateProgress);
-        }
+        video.removeEventListener("timeupdate", updateProgress);
+        video.removeEventListener("loadedmetadata", updateProgress);
       };
     }
   }, [selectedStory, handleNext]);
 
   useEffect(() => {
     if (selectedStory && selectedStory.type === "video" && videoRef.current) {
+      const video = videoRef.current;
       // If video is longer than 30s, jump to end at 30s
       const onLoadedMetadata = () => {
-        if (videoRef.current) {
-          const duration = videoRef.current.duration * 1000;
-          setVideoDuration(Math.min(duration, MAX_VIDEO_DURATION));
+        if (video) {
+          const duration = video.duration * 1000;
           if (duration > MAX_VIDEO_DURATION) {
-            videoRef.current.currentTime = MAX_VIDEO_DURATION / 1000;
+            video.currentTime = MAX_VIDEO_DURATION / 1000;
           }
         }
       };
-      videoRef.current.addEventListener("loadedmetadata", onLoadedMetadata);
+      video.addEventListener("loadedmetadata", onLoadedMetadata);
       return () => {
-        if (videoRef.current) {
-          videoRef.current.removeEventListener("loadedmetadata", onLoadedMetadata);
-        }
+        video.removeEventListener("loadedmetadata", onLoadedMetadata);
       };
     }
   }, [selectedStory]);
 
   useEffect(() => {
     if (selectedStory && selectedStory.type === "video" && videoRef.current) {
-      videoRef.current.muted = isMuted;
-      videoRef.current.currentTime = 0;
-      const playPromise = videoRef.current.play();
+      const video = videoRef.current;
+      video.muted = isMuted;
+      video.currentTime = 0;
+      const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch((e) => {
-          // Autoplay might be blocked
           console.warn('Autoplay prevented:', e);
         });
       }
@@ -158,9 +150,11 @@ const Stories: React.FC = () => {
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-[#f09433] via-[#e6683c] to-[#dc2743] p-[2px] rounded-full">
               <div className="w-full h-full rounded-full overflow-hidden bg-white p-[2px]">
-                <img
+                <Image
                   src={story.avatarUrl}
-                  alt={`${story.username}'s avatar`}
+                  alt={`${story.username}&apos;s avatar`}
+                  width={70}
+                  height={70}
                   className="w-full h-full object-cover rounded-full"
                 />
               </div>
@@ -177,9 +171,11 @@ const Stories: React.FC = () => {
           <div className="p-2.5 flex justify-between items-center text-white bg-black/50">
             <div className="flex items-center gap-2">
               <div className="w-8 h-8 rounded-full overflow-hidden">
-                <img
+                <Image
                   src={selectedStory.avatarUrl}
-                  alt={`${selectedStory.username}'s avatar`}
+                  alt={`${selectedStory.username}&apos;s avatar`}
+                  width={32}
+                  height={32}
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -223,10 +219,12 @@ const Stories: React.FC = () => {
               </div>
             )}
             {selectedStory.type === 'image' ? (
-              <img
-                src={selectedStory.imageUrl}
-                alt={`${selectedStory.username}'s story`}
+              <Image
+                src={selectedStory.imageUrl!}
+                alt={`${selectedStory.username}&apos;s story`}
                 onLoad={handleMediaLoad}
+                width={400}
+                height={800}
                 className="max-w-full max-h-full object-contain"
               />
             ) : (
@@ -246,7 +244,7 @@ const Stories: React.FC = () => {
                 muted={isMuted}
                 preload="auto"
               >
-                Sorry, your browser doesn't support embedded videos.
+                Sorry, your browser doesn&apos;t support embedded videos.
               </video>
             )}
             <div
