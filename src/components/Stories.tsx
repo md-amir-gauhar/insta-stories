@@ -5,8 +5,8 @@ import Image from "next/image";
 import Loader from "./Loader";
 import { stories, Story } from "@/constants/stories";
 
-const IMAGE_DURATION = 5000; // 5 seconds
-const MAX_VIDEO_DURATION = 30000; // 30 seconds
+const IMAGE_DURATION = 5000;
+const MAX_VIDEO_DURATION = 30000;
 
 const Stories: React.FC = () => {
   const [selectedStory, setSelectedStory] = useState<Story | null>(null);
@@ -117,7 +117,6 @@ const Stories: React.FC = () => {
       const playPromise = video.play();
       if (playPromise !== undefined) {
         playPromise.catch((e) => {
-          // Autoplay might be blocked
           console.warn('Autoplay prevented:', e);
         });
       }
