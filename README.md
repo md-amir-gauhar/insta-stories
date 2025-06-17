@@ -1,4 +1,4 @@
-# Assignment Project
+# Mini Insta Stories
 
 A modern web application built with Next.js, React, and TypeScript, featuring a clean and responsive user interface powered by Tailwind CSS.
 
