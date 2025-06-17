@@ -1,24 +1,132 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Assignment Project
 
-## Getting Started
+A modern web application built with Next.js, React, and TypeScript, featuring a clean and responsive user interface powered by Tailwind CSS.
 
-First, run the development server:
+## 🚀 Technologies
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- [Next.js 15.3.3](https://nextjs.org/) - React framework for production
+- [React 19](https://reactjs.org/) - JavaScript library for building user interfaces
+- [TypeScript](https://www.typescriptlang.org/) - JavaScript with syntax for types
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [ESLint](https://eslint.org/) - Code linting
+- [Playwright](https://playwright.dev/) - End-to-end testing framework
+
+## 📦 Project Structure
+
+```
+├── src/
+│   ├── app/                 # Next.js app directory
+│   │   ├── page.tsx        # Main page component
+│   │   ├── layout.tsx      # Root layout component
+│   │   └── globals.css     # Global styles
+│   ├── components/         # Reusable components
+│   │   ├── Stories.tsx     # Stories component
+│   │   └── Loader.tsx      # Loading component
+│   └── constants/          # Constant values
+├── e2e/                    # End-to-end tests
+│   └── stories.spec.ts     # Stories component tests
+├── public/                 # Static assets
+├── .next/                  # Next.js build output
+└── node_modules/          # Project dependencies
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🛠️ Getting Started
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Prerequisites
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js (Latest LTS version recommended)
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone <repository-url>
+   cd assignment
+   ```
+
+2. Install dependencies:
+
+   ```bash
+   npm install
+   # or
+   yarn install
+   ```
+
+3. Run the development server:
+
+   ```bash
+   npm run dev
+   # or
+   yarn dev
+   ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
+
+## 📝 Available Scripts
+
+- `npm run dev` - Starts the development server
+- `npm run build` - Builds the application for production
+- `npm run start` - Runs the built application
+- `npm run lint` - Runs ESLint to check code quality
+- `npm test` - Runs end-to-end tests in headless mode
+- `npm run test:ui` - Runs end-to-end tests with UI mode
+
+## 🧪 Testing
+
+The project uses Playwright for end-to-end testing. The tests cover the following functionality:
+
+- Story avatar display and navigation
+- Story viewer opening and closing
+- Navigation between stories
+- Video story playback and controls
+- Loading states and transitions
+
+### Running Tests
+
+1. Install Playwright browsers (first time only):
+
+   ```bash
+   npx playwright install
+   ```
+
+2. Run tests in headless mode:
+
+   ```bash
+   npm test
+   ```
+
+3. Run tests with UI mode (recommended for development):
+
+   ```bash
+   npm run test:ui
+   ```
+
+The tests run in three browsers (Chrome, Firefox, and Safari) to ensure cross-browser compatibility.
+
+## 🔧 Configuration Files
+
+- `package.json` - Project dependencies and scripts
+- `tsconfig.json` - TypeScript configuration
+- `next.config.ts` - Next.js configuration
+- `postcss.config.mjs` - PostCSS configuration for Tailwind
+- `eslint.config.mjs` - ESLint configuration
+- `playwright.config.ts` - Playwright test configuration
+
+## 🏗️ Development
+
+The project uses a modern development stack with:
+
+- **TypeScript** for type safety
+- **Tailwind CSS** for styling
+- **ESLint** for code quality
+- **Next.js** for server-side rendering and routing
+- **Playwright** for end-to-end testing
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Learn More
 
